@@ -1,6 +1,6 @@
 const DB_NAME = 'assistente_pessoal_vip_db';
-const DB_VERSION = 3;
-export const STORES = ['settings','memories','decisions','forgeModules','forgeRecords','activity'];
+const DB_VERSION = 5;
+export const STORES = ['settings','memories','decisions','forgeModules','forgeRecords','activity','transactions'];
 let dbPromise;
 
 export function openDB(){
@@ -24,6 +24,9 @@ export function openDB(){
       }
       if(!db.objectStoreNames.contains('activity')){
         const s=db.createObjectStore('activity',{keyPath:'id'}); s.createIndex('createdAt','createdAt');
+      }
+      if(!db.objectStoreNames.contains('transactions')){
+        const s=db.createObjectStore('transactions',{keyPath:'id'}); s.createIndex('createdAt','createdAt'); s.createIndex('type','type');
       }
     };
     req.onsuccess=()=>resolve(req.result);
