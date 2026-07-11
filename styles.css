@@ -235,3 +235,62 @@ main{max-width:1200px;margin:0 auto;padding:32px;}
 .secret-input{display:flex;gap:12px;}
 .api-status{margin-top:16px;padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);}
 .api-status.success{border-color:var(--success);background:rgba(16,185,129,.05);}
+
+/* GÊMEO FINANCEIRO · Clean Tech */
+.finance-tabs{display:flex;gap:8px;overflow:auto;padding:3px 1px 13px;margin-bottom:4px;scrollbar-width:thin}
+.finance-tab{white-space:nowrap;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:12px;padding:8px 14px;font-size:.8rem;font-weight:600;transition:.2s;}
+.finance-tab.active{background:var(--electric);border-color:var(--electric);color:#fff;box-shadow:var(--shadow-soft)}
+.finance-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;padding:32px;border-radius:var(--radius);background:var(--electric);color:#fff;box-shadow:var(--shadow);margin-bottom:24px;overflow:hidden;position:relative}
+.finance-hero>*{position:relative;z-index:1}
+.finance-hero>div{display:grid;gap:6px}
+.finance-hero small{font-size:.7rem;letter-spacing:.1em;color:rgba(255,255,255,.8);font-weight:700;text-transform:uppercase}
+.finance-hero strong{font-size:clamp(2rem,5vw,3.2rem);line-height:1;font-weight:800}
+.finance-hero span{font-size:.8rem;color:rgba(255,255,255,.85)}
+.finance-month{min-width:200px}
+.finance-month span{color:rgba(255,255,255,.9)}
+.finance-month input{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.2);color:#fff}
+.finance-summary .finance-kpi{min-height:130px;padding:20px;border-radius:16px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-soft)}
+.finance-kpi>span{font-size:.75rem;letter-spacing:.05em;color:var(--muted);font-weight:700;text-transform:uppercase}
+.finance-kpi>strong{display:block;margin:12px 0 6px;font-size:1.5rem;color:var(--text-strong);font-weight:700}
+.finance-kpi>small{color:var(--muted);font-size:.75rem}
+.finance-progress{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden;margin:12px 0 8px}
+.finance-progress i{display:block;height:100%;border-radius:inherit;background:var(--electric);max-width:100%}
+.finance-kpi.income .finance-progress i{background:var(--success)}
+.finance-kpi.expense .finance-progress i{background:var(--danger)}
+.finance-progress-label{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.75rem}
+.finance-progress-label b{color:var(--text-strong)}
+.finance-goal-mini{display:grid;gap:12px}
+.finance-goal-mini>div:not(.empty-state){display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border)}
+.finance-goal-mini span{display:grid;gap:4px}
+.finance-goal-mini b{font-size:.85rem;color:var(--text-strong);font-weight:600}
+.finance-goal-mini small{font-size:.75rem;color:var(--muted)}
+.finance-goal-mini em{font-style:normal;font-weight:700;color:var(--electric)}
+.finance-list{display:grid;gap:12px}
+.finance-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:16px;padding:16px;border:1px solid var(--border);background:var(--surface);border-radius:16px;box-shadow:var(--shadow-soft)}
+.finance-row-icon{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-weight:700;color:#fff}
+.finance-row-icon.income{background:var(--success)}
+.finance-row-icon.expense{background:var(--danger)}
+.finance-row-icon.account{background:var(--electric)}
+.finance-row b{display:block;font-size:.95rem;color:var(--text-strong);font-weight:600}
+.finance-row small{display:block;margin-top:4px;color:var(--muted);font-size:.75rem}
+.finance-row>strong{font-size:.95rem;white-space:nowrap;font-weight:700}
+.finance-row>strong.income{color:var(--success)}
+.finance-row>strong.expense{color:var(--danger)}
+.finance-row-actions{display:flex;gap:8px}
+.finance-filter-row{display:grid;grid-template-columns:200px 200px minmax(260px,1fr);gap:16px;margin-bottom:20px}
+.finance-search{min-width:0}
+.finance-month-inline{max-width:260px}
+.finance-budget-list{display:grid;gap:12px}
+.finance-budget-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:16px;padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow-soft)}
+.finance-budget-row b,.finance-category b{color:var(--text-strong);font-size:.9rem;font-weight:600}
+.finance-budget-row small,.finance-category small{display:block;color:var(--muted);font-size:.75rem;margin-top:4px}
+.finance-budget-row .finance-progress{margin:10px 0 0}
+.finance-goal-card>strong{display:block;color:var(--text-strong);font-size:1.6rem;margin:10px 0 6px;font-weight:800}
+.finance-goal-card>small{color:var(--muted);font-size:.8rem}
+.finance-positive{color:var(--success)!important}
+.finance-negative{color:var(--danger)!important}
+.finance-category-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.finance-category{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--border);background:var(--surface);border-radius:12px}
+.finance-category>span{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:var(--surface-2);color:var(--electric);font-weight:700}
+@media(max-width:900px){.finance-filter-row{grid-template-columns:1fr 1fr}.finance-search{grid-column:1/-1}.finance-row{grid-template-columns:auto minmax(0,1fr) auto}.finance-row-actions{grid-column:2/-1;justify-content:flex-end}.finance-category-list{grid-template-columns:1fr}}
+@media(max-width:620px){.finance-hero{align-items:stretch;flex-direction:column}.finance-month{min-width:0;width:100%}.finance-filter-row{grid-template-columns:1fr}.finance-search{grid-column:auto}.finance-row{grid-template-columns:auto minmax(0,1fr)}.finance-row>strong{grid-column:2}.finance-row-actions{grid-column:1/-1;justify-content:stretch}.finance-row-actions .btn{flex:1}.finance-budget-row{grid-template-columns:1fr auto}.finance-budget-row>.btn{grid-column:1/-1}.finance-progress-label{flex-direction:column;gap:4px}}
