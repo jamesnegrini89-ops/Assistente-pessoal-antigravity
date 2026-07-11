@@ -1,4 +1,4 @@
-const VERSION = 'assistente-vip-clean-tech-1.0.0';
+const VERSION = 'assistente-vip-clean-tech-1.0.1';
 const APP_SHELL = [
   './','./index.html','./styles.css','./manifest.webmanifest','./js/app.js','./js/db.js','./js/security.js','./js/ui.js','./js/gemini.js','./js/manual-data.js',
   './js/modules/agora.js','./js/modules/qg.js','./js/modules/financeiro.js','./js/modules/memoria.js','./js/modules/oraculo.js','./js/modules/forja.js','./js/modules/guia.js','./js/modules/guardiao.js','./js/modules/configuracoes.js',

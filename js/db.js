@@ -1,6 +1,7 @@
 const DB_NAME = 'assistente_pessoal_vip_db';
-const DB_VERSION = 5;
-export const STORES = ['settings','memories','decisions','forgeModules','forgeRecords','activity','transactions'];
+const DB_VERSION = 6;
+const SECRET_SETTING_KEYS = new Set(['geminiApiKey']);
+export const STORES = ['settings','memories','decisions','forgeModules','forgeRecords','financeTransactions','financeAccounts','financeCategories','financeBudgets','financeGoals','financeRecurring','activity'];
 let dbPromise;
 
 export function openDB(){
@@ -22,11 +23,26 @@ export function openDB(){
       if(!db.objectStoreNames.contains('forgeRecords')){
         const s=db.createObjectStore('forgeRecords',{keyPath:'id'}); s.createIndex('moduleId','moduleId'); s.createIndex('createdAt','createdAt');
       }
+      if(!db.objectStoreNames.contains('financeTransactions')){
+        const s=db.createObjectStore('financeTransactions',{keyPath:'id'}); s.createIndex('date','date'); s.createIndex('type','type'); s.createIndex('accountId','accountId'); s.createIndex('categoryId','categoryId');
+      }
+      if(!db.objectStoreNames.contains('financeAccounts')){
+        const s=db.createObjectStore('financeAccounts',{keyPath:'id'}); s.createIndex('name','name');
+      }
+      if(!db.objectStoreNames.contains('financeCategories')){
+        const s=db.createObjectStore('financeCategories',{keyPath:'id'}); s.createIndex('type','type'); s.createIndex('name','name');
+      }
+      if(!db.objectStoreNames.contains('financeBudgets')){
+        const s=db.createObjectStore('financeBudgets',{keyPath:'id'}); s.createIndex('month','month'); s.createIndex('categoryId','categoryId');
+      }
+      if(!db.objectStoreNames.contains('financeGoals')){
+        const s=db.createObjectStore('financeGoals',{keyPath:'id'}); s.createIndex('status','status'); s.createIndex('deadline','deadline');
+      }
+      if(!db.objectStoreNames.contains('financeRecurring')){
+        const s=db.createObjectStore('financeRecurring',{keyPath:'id'}); s.createIndex('type','type'); s.createIndex('day','day');
+      }
       if(!db.objectStoreNames.contains('activity')){
         const s=db.createObjectStore('activity',{keyPath:'id'}); s.createIndex('createdAt','createdAt');
-      }
-      if(!db.objectStoreNames.contains('transactions')){
-        const s=db.createObjectStore('transactions',{keyPath:'id'}); s.createIndex('createdAt','createdAt'); s.createIndex('type','type');
       }
     };
     req.onsuccess=()=>resolve(req.result);
@@ -48,15 +64,24 @@ export async function setSetting(key,value){return put('settings',{key,value,upd
 export async function getSettings(){const rows=await getAll('settings');return Object.fromEntries(rows.map(r=>[r.key,r.value]));}
 export async function addActivity(type,message,meta={}){return put('activity',{id:crypto.randomUUID(),type,message,meta,createdAt:new Date().toISOString()});}
 export async function exportAll(){
-  const payload={schema:'assistente-pessoal-vip',version:1,exportedAt:new Date().toISOString(),stores:{}};
-  for(const name of STORES) payload.stores[name]=await getAll(name);
+  const payload={schema:'assistente-pessoal-vip',version:2,exportedAt:new Date().toISOString(),excludedSecrets:[...SECRET_SETTING_KEYS],stores:{}};
+  for(const name of STORES){
+    const rows=await getAll(name);
+    payload.stores[name]=name==='settings'?rows.filter(row=>!SECRET_SETTING_KEYS.has(row.key)):rows;
+  }
   return payload;
 }
 export async function importAll(payload){
   if(!payload || payload.schema!=='assistente-pessoal-vip' || !payload.stores) throw new Error('Arquivo de backup incompatível.');
+  const localSecrets={};
+  for(const key of SECRET_SETTING_KEYS)localSecrets[key]=await getSetting(key,null);
   for(const name of STORES){
     await clearStore(name);
-    for(const item of (payload.stores[name]||[])) await put(name,item);
+    for(const item of (payload.stores[name]||[])){
+      if(name==='settings'&&SECRET_SETTING_KEYS.has(item?.key))continue;
+      await put(name,item);
+    }
   }
+  for(const [key,value] of Object.entries(localSecrets))if(value!==null&&value!==undefined)await setSetting(key,value);
 }
 export async function clearAll(){for(const name of STORES) await clearStore(name);}
