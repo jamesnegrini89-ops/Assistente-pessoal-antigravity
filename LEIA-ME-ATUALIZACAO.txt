@@ -1,0 +1,33 @@
+ASSISTENTE PESSOAL VIP — ATUALIZAÇÃO 0.1.2
+Módulo: VIP GUIA
+
+COMO ATUALIZAR NO GITHUB
+1. Extraia este arquivo ZIP no computador.
+2. Abra o repositório do Assistente Pessoal VIP no GitHub.
+3. Clique em Add file > Upload files.
+4. Envie TODO o conteúdo extraído, preservando as pastas js e js/modules.
+5. Confirme a substituição dos arquivos existentes.
+6. Clique em Commit changes.
+7. Aguarde o GitHub Pages publicar.
+8. Feche completamente a PWA e abra novamente.
+9. Se a versão antiga continuar, atualize a página no navegador ou reinstale o atalho.
+
+NOVOS ARQUIVOS IMPORTANTES
+- js/manual-data.js
+- js/modules/guia.js
+
+O QUE FOI ADICIONADO
+- VIP Guia acessível pelo botão ? no topo e pelo QG.
+- Manual completo que funciona offline.
+- Respostas ampliadas pelo Gemini configurado em CONFIGURAÇÕES.
+- Modos Automático, Somente offline e Preferir Gemini.
+- Perguntas por voz em navegadores compatíveis.
+- Botões para abrir diretamente a função explicada.
+- Histórico local e limpeza de conversa.
+- Fallback automático para o manual offline quando a IA falhar.
+
+SEGURANÇA
+- A chave API não está incluída neste ZIP.
+- O VIP Guia usa a chave salva no navegador.
+- As chamadas usam store:false.
+- Não escreva senhas, chaves ou dados sigilosos nas perguntas.

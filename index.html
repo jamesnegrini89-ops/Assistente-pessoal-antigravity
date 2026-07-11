@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Assistente Clean — sistema operacional pessoal modular, privado e offline-first.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Assistente Clean</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/jpeg" sizes="192x192" href="./assets/icon.jpg">
+  <link rel="apple-touch-icon" href="./assets/icon.jpg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="appShell" class="app-shell" hidden>
+    <aside class="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="#agora" aria-label="Assistente Clean">
+        <img src="./assets/icon.jpg" alt="">
+        <span><strong>Assistente Clean</strong><small>Versão 1.0</small></span>
+      </a>
+      <nav id="desktopNav" class="nav-list"></nav>
+      <div class="sidebar-footer">
+        <div class="status-pill"><i></i><span>Dados locais</span></div>
+        <small>Offline-first · Clean Tech</small>
+      </div>
+    </aside>
+
+    <div class="content-area">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button id="menuToggleBtn" class="icon-btn mobile-only" type="button" title="Menu" aria-label="Menu" style="display: none;">☰</button>
+          <div>
+            <span class="eyebrow">ASSISTENTE CLEAN</span>
+            <h1 id="pageTitle">AGORA</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button id="guideBtn" class="icon-btn" type="button" title="Abrir Guia" aria-label="Abrir Guia">?</button>
+          <button id="lockNowBtn" class="icon-btn" type="button" title="Bloquear agora" aria-label="Bloquear agora">⌁</button>
+          <button id="themeToggleBtn" class="icon-btn" type="button" title="Alternar tema" aria-label="Alternar tema">◐</button>
+          <button id="settingsBtn" class="profile-btn" type="button" title="Configurações" aria-label="Abrir configurações"><span id="profileInitial">A</span></button>
+        </div>
+      </header>
+      <main id="mainContent" tabindex="-1"></main>
+    </div>
+
+    <div id="drawerOverlay" class="drawer-overlay" hidden></div>
+    <aside id="mobileDrawer" class="mobile-drawer" hidden>
+      <div class="drawer-header">
+        <img src="./assets/icon-192.png" alt="" style="width: 32px; border-radius: 8px;">
+        <strong>Menu Principal</strong>
+        <button id="menuCloseBtn" class="icon-btn" style="margin-left: auto; width: 32px; height: 32px;">×</button>
+      </div>
+      <nav id="mobileNav" class="mobile-nav-list" aria-label="Navegação móvel"></nav>
+    </aside>
+  </div>
+
+  <section id="onboarding" class="fullscreen-layer" hidden aria-labelledby="onboardingTitle">
+    <div class="setup-card">
+      <div class="setup-brand"><img src="./assets/icon.jpg" alt=""><span>Configuração inicial</span></div>
+      <div class="setup-progress" aria-label="Progresso"><i id="setupProgress"></i></div>
+      <div id="setupBody"></div>
+    </div>
+  </section>
+
+  <section id="lockScreen" class="fullscreen-layer lock-layer" hidden aria-labelledby="lockTitle">
+    <form id="unlockForm" class="lock-card">
+      <img src="./assets/icon.jpg" alt="">
+      <span class="eyebrow">ÁREA PRIVADA</span>
+      <h2 id="lockTitle">Assistente Clean</h2>
+      <p id="lockGreeting">Digite seu PIN para continuar.</p>
+      <label class="field"><span>PIN</span><input id="unlockPin" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="current-password" type="password" required></label>
+      <button class="btn btn-primary btn-full" type="submit">Desbloquear</button>
+      <small id="lockMessage" class="form-message" aria-live="polite"></small>
+    </form>
+  </section>
+
+  <dialog id="modal" class="modal"><div id="modalContent"></div></dialog>
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+  <input id="importFileInput" type="file" accept="application/json" hidden>
+
+  <script>
+    // Inline logic for mobile drawer since app.js doesn't handle it
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('menuToggleBtn');
+      const close = document.getElementById('menuCloseBtn');
+      const overlay = document.getElementById('drawerOverlay');
+      const drawer = document.getElementById('mobileDrawer');
+      const mobileNav = document.getElementById('mobileNav');
+
+      const openDrawer = () => { drawer.hidden = false; overlay.hidden = false; };
+      const closeDrawer = () => { drawer.hidden = true; overlay.hidden = true; };
+
+      if(toggle) toggle.addEventListener('click', openDrawer);
+      if(close) close.addEventListener('click', closeDrawer);
+      if(overlay) overlay.addEventListener('click', closeDrawer);
+
+      // Close drawer when a nav item is clicked
+      if(mobileNav) {
+        mobileNav.addEventListener('click', (e) => {
+          if(e.target.closest('button')) closeDrawer();
+        });
+      }
+    });
+  </script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
