@@ -1,5 +1,5 @@
 const DB_NAME = 'assistente_pessoal_vip_db';
-const DB_VERSION = 4;
+const DB_VERSION = 5;
 export const STORES = ['settings','memories','decisions','forgeModules','forgeRecords','activity','transactions'];
 let dbPromise;
 
