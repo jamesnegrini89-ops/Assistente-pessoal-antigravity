@@ -49,6 +49,7 @@ function navButton(route){const r=ROUTES[route];return `<button class="nav-item"
 
 function bindGlobalEvents(){
   window.addEventListener('hashchange',()=>{if(lockController.isUnlocked())renderRoute();});
+  $('#homeBtn').onclick=()=>location.hash='#agora';
   $('#settingsBtn').onclick=()=>location.hash='#configuracoes';
   $('#guideBtn').onclick=()=>location.hash='#guia';
   $('#lockNowBtn').onclick=()=>lockController.lock();
